@@ -1,3 +1,11 @@
+//  Variables = qNumber(null), timer(num), score(num), initials(text)
+let timer = 90;
+let runningTimer;
+let score = 0;
+let username = "";
+let qNumber;
+let finalScore;
+const MAX_HIGH_SCORES = 7;
 
 const questions = [
     {

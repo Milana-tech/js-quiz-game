@@ -41,8 +41,8 @@ function startGame() {
     showQuestion(questions[qNumber]);
 }
 
-//function to display the questions
-//should load one object from the questions array into the proper html elements, then run the function to collect answers
+//  function to display the questions
+//  should load one object from the questions array into the proper html elements, then run the function to collect answers
 function showQuestion(question) {
     qElement.innerText = question.question;
     question.answers.forEach(answer => {
@@ -56,6 +56,47 @@ function showQuestion(question) {
         button.addEventListener("click", selectAnswer);
         answerButtons.appendChild(button);
     });
+}
+
+//  function to start the timer
+//  should run a countdown that is displayed in the HTML, when time is up, should run the game over function
+function startClock() {
+    countdown.innerHTML = "Time Remaining: " + timer;
+    if (timer <= 0) {
+        gameOver();
+    } else {
+        timer -= 1;
+        runningTimer = setTimeout(startClock, 1000);
+    }
+}
+
+//  function to collect answers
+//  should listen for what answer the user clicks on, compare it to the correct answer, and decrease the timer if wrong. should then run the next question function
+//  unless the current question is the last, then it should run the game over function
+function selectAnswer(e) {
+    const selectedButton = e.target;
+    if (!selectedButton.dataset.correct) {
+        timer = timer - 10;
+        console.log(timer);
+    }
+    if (qNumber == questions.length - 1) {
+        gameOver();
+    } else {
+        clearQuestion();
+        qNumber++;
+        showQuestion(questions[qNumber]);
+        console.log(score);
+    }
+}
+
+//  function to clear the current question
+//  should empty the HTML elements that are occupied with the currently displayed question
+function clearQuestion()
+{
+    while (answerButtons.firstChild)
+    {
+        answerButtons.removeChild(answerButtons.firstChild);
+    }
 }
 
 const questions = [

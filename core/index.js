@@ -129,6 +129,50 @@ function showResults() {
     });
 }
 
+//  function to submit high scores
+//  should grab the users score and initials and add it to the high scores object, ranked numerically, and run the function to display the high scores
+function submitScores(e) {
+    const score = {
+        score: finalScore,
+        name: username.value
+    };
+    highScores.push(score);
+    highScores.sort((a, b) => b.score - a.score);
+    highScores.splice(MAX_HIGH_SCORES);
+
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+    displayScores();
+}
+
+//  function to display high scores
+//  should populate the HTML with a ranked display of the high scores and and provide the option to clear the scores via a function
+function displayScores() {
+    clearInterval(runningTimer);
+    countdown.innerHTML = "";
+    clearQuestion();
+    qElement.innerText = "";
+    scoreArea.classList.remove("hide");
+
+    scoreArea.innerHTML = `<h2>High Scores</h2><ul id="highScoresList"></ul><button id="clearScores" class="btn" onclick="clearScores()">Clear Scores</button>`;
+    const highScoresList = document.getElementById("highScoresList");
+    highScoresList.innerHTML = highScores
+        .map(score => {
+            return `<li class="scoresList">${score.name} - ${score.score}</li>`;
+        })
+        .join("");
+    startButton.classList.remove("hide");
+    highScoresButton.classList.add("hide");
+}
+
+//  function to clear high scores
+//  should fire on click, and erase the values of the high scores object
+function clearScores() {
+    highScores = [];
+    highScoresList.innerHTML = "<h3>Scores have been Cleared</h3>";
+    document.getElementById("clearScores").classList.add("hide");
+}
+
+
 const questions = [
     {
         question: "Inside which HTML element do we put the JavaScript?",

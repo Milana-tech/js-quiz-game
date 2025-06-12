@@ -99,6 +99,36 @@ function clearQuestion()
     }
 }
 
+//  function for game over
+//  should grab the current time remaining and set it as the score, hide the questions area, display the score to the user, and give them the chance to try again or submit
+//  their high scores via a text box for intials and the high scores function
+function gameOver() {
+    clearInterval(runningTimer);
+    countdown.innerHTML = "Finished";
+    clearQuestion();
+    showResults();
+    startButton.innerText = "Restart";
+    startButton.classList.remove("hide");
+    timer = 90;
+    score = 0;
+}
+
+function showResults() {
+    finalScore = timer;
+    if (finalScore < 0) {
+        finalScore = 0;
+    }
+    qElement.innerText = "";
+    scoreArea.classList.remove("hide");
+    answerButtons.classList.add("hide");
+    scoreArea.innerHTML = `Your score is ${finalScore}!<div id="init">Name: <input type="text" name="initials" id="initials" placeholder="Enter Your Name"><button id="save-btn" class="save-btn btn" onclick="submitScores(event)" disabled>Save</button>`;
+    username = document.getElementById("initials");
+    saveButton = document.getElementById("save-btn");
+    username.addEventListener("keyup", function() {
+        saveButton.disabled = !username.value;
+    });
+}
+
 const questions = [
     {
         question: "Inside which HTML element do we put the JavaScript?",

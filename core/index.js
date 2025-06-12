@@ -16,6 +16,13 @@ const countdown = document.getElementById("timerArea");
 const scoreArea = document.getElementById("scoreArea");
 const highScoresButton = document.getElementById("showScoresButton");
 
+// LocalStorage Objects
+let highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+
+//  Event listeners.
+startButton.addEventListener("click", startGame);
+highScoresButton.addEventListener("click", displayScores);
+
 
 const questions = [
     {

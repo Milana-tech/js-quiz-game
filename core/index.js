@@ -23,6 +23,40 @@ let highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 startButton.addEventListener("click", startGame);
 highScoresButton.addEventListener("click", displayScores);
 
+// function to start the game, it is called when start button is clicked, should run the function to display questions
+// and the function to start the timer
+
+function startGame() {
+    startButton.classList.add("hide");
+    scoreArea.classList.add("hide");
+    answerButtons.classList.remove("hide");
+    qNumber = 0;
+    qContainer.classList.remove("hide");
+    scoreArea.innerHTML = "";
+    startClock();
+    while (answerButtons.firstChild)
+    {
+        answerButtons.removeChild(answerButtons.firstChild);
+    }
+    showQuestion(questions[qNumber]);
+}
+
+//function to display the questions
+//should load one object from the questions array into the proper html elements, then run the function to collect answers
+function showQuestion(question) {
+    qElement.innerText = question.question;
+    question.answers.forEach(answer => {
+        const button = document.createElement("button");
+        button.innerText = answer.text;
+        button.classList.add("btn");
+        if (answer.correct)
+        {
+            button.dataset.correct = answer.correct;
+        }
+        button.addEventListener("click", selectAnswer);
+        answerButtons.appendChild(button);
+    });
+}
 
 const questions = [
     {

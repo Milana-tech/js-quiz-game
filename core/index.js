@@ -7,6 +7,16 @@ let qNumber;
 let finalScore;
 const MAX_HIGH_SCORES = 7;
 
+//  DOM Objects = START BUTTON, ANSWER BUTTONS, QUESTION CONTAINER, QUESTION ELEMENT
+const startButton = document.getElementById("startButton");
+const qContainer = document.getElementById("questionsContainer");
+const qElement = document.getElementById("question");
+const answerButtons = document.getElementById("answers");
+const countdown = document.getElementById("timerArea");
+const scoreArea = document.getElementById("scoreArea");
+const highScoresButton = document.getElementById("showScoresButton");
+
+
 const questions = [
     {
         question: "Inside which HTML element do we put the JavaScript?",
